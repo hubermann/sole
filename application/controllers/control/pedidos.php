@@ -85,7 +85,7 @@ $this->form_validation->set_rules('created_at', 'Created_at', 'required');
 
 $this->form_validation->set_rules('fecha', 'Fecha', 'required');
 
-$this->form_validation->set_rules('estatus', 'Estatus', 'required');
+$this->form_validation->set_rules('status', 'status', 'required');
 
 $this->form_validation->set_rules('observaciones', 'Observaciones', 'required');
 
@@ -111,7 +111,7 @@ $this->form_validation->set_rules('monto_total', 'Monto_total', 'required');
 		$newpedido = array( 'cliente_id' => $this->input->post('cliente_id'), 
  'created_at' => $this->input->post('created_at'), 
  'fecha' => $this->input->post('fecha'), 
- 'estatus' => $this->input->post('estatus'), 
+ 'status' => $this->input->post('status'), 
  'observaciones' => $this->input->post('observaciones'), 
  'monto_total' => $this->input->post('monto_total'), 
 );
@@ -146,7 +146,7 @@ $this->form_validation->set_rules('created_at', 'Created_at', 'required');
 
 $this->form_validation->set_rules('fecha', 'Fecha', 'required');
 
-$this->form_validation->set_rules('estatus', 'Estatus', 'required');
+$this->form_validation->set_rules('status', 'status', 'required');
 
 $this->form_validation->set_rules('observaciones', 'Observaciones', 'required');
 
@@ -178,7 +178,7 @@ $this->form_validation->set_rules('monto_total', 'Monto_total', 'required');
 
 'fecha' => $this->input->post('fecha'),
 
-'estatus' => $this->input->post('estatus'),
+'status' => $this->input->post('status'),
 
 'observaciones' => $this->input->post('observaciones'),
 
