@@ -10,22 +10,16 @@ echo '<fieldset>'.form_hidden('id', $query->id);
 
  <p>Nombre: <?php echo $query->nombre; ?></p>
  <p>Apellido: <?php echo $query->apellido; ?></p>
- <p>Razon_social: <?php echo $query->razon_social; ?></p>
- <p>Direccion: <?php echo $query->direccion; ?></p>
- <p>Telefono: <?php echo $query->telefono; ?></p>
- <p>Movil: <?php echo $query->movil; ?></p>
- <p>Email: <?php echo $query->email; ?></p>
- <p>Email2: <?php echo $query->email2; ?></p>
- <p>Cuit: <?php echo $query->cuit; ?></p>
- <p>Observaciones: <?php echo $query->observaciones; ?></p>
+ <p>Razon social: <?php echo $query->razon_social; ?></p>
+
 
 <!--  -->
 <div class="control-group">
 
 <label class="checkbox inline">
 
-<input type="checkbox" name="comfirm" id="comfirm" />
-<p>Confirma eliminar?</p>
+
+<p style="margin-left:1.3em"> <input type="checkbox" name="comfirm" id="comfirm" /> Confirma eliminar?</p>
 <?php echo form_error('comfirm','<p class="error">', '</p>'); ?>
  </label>
 </div>

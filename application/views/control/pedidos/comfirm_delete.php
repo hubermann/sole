@@ -11,7 +11,7 @@ echo '<fieldset>'.form_hidden('id', $query->id);
  <p>Cliente_id: <?php echo $query->cliente_id; ?></p>
  <p>Created_at: <?php echo $query->created_at; ?></p>
  <p>Fecha: <?php echo $query->fecha; ?></p>
- <p>Estatus: <?php echo $query->estatus; ?></p>
+ <p>Status: <?php echo $query->status; ?></p>
  <p>Observaciones: <?php echo $query->observaciones; ?></p>
  <p>Monto_total: <?php echo $query->monto_total; ?></p>
 
@@ -33,4 +33,4 @@ echo '<fieldset>'.form_hidden('id', $query->id);
 
 </fieldset>
 
-<?php echo form_close(); ?>
+<?php echo form_close(); ?>t

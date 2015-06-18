@@ -9,12 +9,12 @@ if(count($query)){
 		/* $nombre_categoria = $this->categoria->traer_nombre($row->categoria_id); */
 
 		echo '<tr>';
-echo '<td>'.$row->cliente_id.' </td>';
-echo '<td>'.$row->created_at.' </td>';
-echo '<td>'.$row->fecha.' </td>';
-echo '<td>'.$row->estatus.' </td>';
-echo '<td>'.$row->observaciones.' </td>';
-echo '<td>'.$row->monto_total.' </td>';
+		echo '<td>'.$row->cliente_id.' </td>';
+		echo '<td>'.$row->created_at.' </td>';
+		echo '<td>'.$row->fecha.' </td>';
+		echo '<td>'.$row->status.' </td>';
+		echo '<td>'.$row->observaciones.' </td>';
+		echo '<td>'.$row->monto_total.' </td>';
 
 		echo '</td>';
 

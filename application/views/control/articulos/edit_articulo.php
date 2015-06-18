@@ -57,7 +57,21 @@ echo form_hidden('id', $query->id);
 			<div class="control-group">
 			<label class="control-label">Temporada_id</label>
 			<div class="controls">
-			<input value="<?php echo $query->temporada_id; ?>" type="text" class="form-control" name="temporada_id" />
+
+			<select name="temporada_id" id="temporada_id">
+		<?php  
+
+		if($temporadas){
+
+			foreach ($temporadas as $value) {
+				$sel="";
+				if($query->temporada_id == $value->id){$sel="selected";}
+				echo '<option value="'.$value->id.'" '.$sel.'>'.$value->nombre.'</option>';
+			}
+		}
+		
+		?>
+		</select>
 			<?php echo form_error('temporada_id','<p class="error">', '</p>'); ?>
 			</div>
 			</div>
@@ -81,8 +95,11 @@ echo form_hidden('id', $query->id);
 			<div class="control-group">
 			<label class="control-label">Status</label>
 			<div class="controls">
-			<input value="<?php echo $query->status; ?>" type="text" class="form-control" name="status" />
-			<?php echo form_error('status','<p class="error">', '</p>'); ?>
+			<?php  
+			echo form_dropdown('status', $this->config->item('status'), $query->status, 'id = status'); 
+			echo form_error('status','<p class="error">', '</p>');
+			?>
+		
 			</div>
 			</div>
 			<!-- Text input-->
@@ -97,10 +114,20 @@ echo form_hidden('id', $query->id);
 			<div class="control-group">
 			<label class="control-label">Observaciones</label>
 			<div class="controls">
-			<input value="<?php echo $query->observaciones; ?>" type="text" class="form-control" name="observaciones" />
+			<textarea name="observaciones" id="observaciones" class="form-control"><?php echo $query->observaciones; ?></textarea>
+
 			<?php echo form_error('observaciones','<p class="error">', '</p>'); ?>
 			</div>
 			</div>
+			<!-- Text input-->
+			<div class="control-group">
+			<label class="control-label">Stock</label>
+			<div class="controls">
+			<input value="<?php echo $query->stock; ?>" type="text" class="form-control" name="stock" />
+			<?php echo form_error('stock','<p class="error">', '</p>'); ?>
+			</div>
+			</div>
+
 	<!-- Text input-->
 <div class="control-group">
 	<label class="control-label">Imagen</label>

@@ -9,8 +9,11 @@ class Pedidos_item extends CI_Model{
 	}
 	//all
 	public function get_records($num,$start){
-		$this->db->select()->from('pedidos_items')->order_by('id','ASC')->limit($num,$start);
-		return $this->db->get();
+		$query = $this->db->select('*')->from('pedidos_items')
+        ->order_by('id','ASC')
+        ->limit($num, $start)
+       	->get();
+       	return $query->result();
 
 	}
 

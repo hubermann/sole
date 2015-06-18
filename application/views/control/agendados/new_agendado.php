@@ -10,30 +10,15 @@ echo form_hidden('agendado[id]');
 <div class="well well-large well-transparent">
 
 
-<!-- Text input-->
-<!--
-<div class="control-group">
-<label class="control-label">Categoria</label>
-	<div class="controls">
 		
-		<select name="categoria_id" id="categoria_id">
-		<?php  
-		/*
-		$categorias = $this->Categoria->get_records_menu();
-		if($categorias){
+			<!-- Text input-->
+			<div class="control-group">
+			<label class="control-label">Categoria</label>
+			<div class="controls">
 
-			foreach ($categorias->result() as $value) {
-				echo '<option value="'.$value->id.'">'.$value->nombre.'</option>';
-			}
-		}
-		*/
-		?>
-		</select>
-
-		<?php echo form_error('categoria_id','<p class="error">', '</p>'); ?>
-	</div>
-</div>
--->
+			<?php echo form_dropdown('categoria_id', $this->config->item('opciones_agendados'), $this->input->post('categoria_id')); echo form_error('categoria_id','<p class="error">', '</p>'); ?>
+			</div>
+			</div>
 			<!-- Text input-->
 			<div class="control-group">
 			<label class="control-label">Nombre</label>

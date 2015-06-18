@@ -102,7 +102,7 @@ $this->form_validation->set_rules('nombre', 'Nombre', 'required');
 );
 		#save
 		$this->temporada->add_record($newtemporada);
-		$this->session->set_flashdata('success', 'temporada creado. <a href="temporadas/detail/'.$this->db->insert_id().'">Ver</a>');
+		$this->session->set_flashdata('success', 'Temporada creada.');
 		redirect('control/temporadas', 'refresh');
 
 	}
@@ -147,8 +147,8 @@ $this->form_validation->set_rules('nombre', 'Nombre', 'required');
 		}
 
 		$editedtemporada = array(  
-'nombre' => $this->input->post('nombre'),
-);
+		'nombre' => $this->input->post('nombre'),
+		);
 		#save
 		$this->session->set_flashdata('success', 'temporada Actualizado!');
 		$this->temporada->update_record($id, $editedtemporada);

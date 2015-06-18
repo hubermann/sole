@@ -21,29 +21,8 @@ echo form_hidden('articulo[id]');
 
 
 <!-- Text input-->
-<!--
-<div class="control-group">
-<label class="control-label">Categoria</label>
-	<div class="controls">
-		
-		<select name="categoria_id" id="categoria_id">
-		<?php  
-		/*
-		$categorias = $this->Categoria->get_records_menu();
-		if($categorias){
 
-			foreach ($categorias->result() as $value) {
-				echo '<option value="'.$value->id.'">'.$value->nombre.'</option>';
-			}
-		}
-		*/
-		?>
-		</select>
 
-		<?php echo form_error('categoria_id','<p class="error">', '</p>'); ?>
-	</div>
-</div>
--->
 			<!-- Text input-->
 			<div class="control-group">
 			<label class="control-label">Codigo</label>
@@ -56,7 +35,18 @@ echo form_hidden('articulo[id]');
 			<div class="control-group">
 			<label class="control-label">Temporada_id</label>
 			<div class="controls">
-			<input value="<?php echo set_value('temporada_id'); ?>" class="form-control" type="text" name="temporada_id" />
+			<select name="temporada_id" id="temporada_id">
+		<?php  
+
+		if($temporadas){
+
+			foreach ($temporadas as $value) {
+				echo '<option value="'.$value->id.'">'.$value->nombre.'</option>';
+			}
+		}
+		
+		?>
+		</select>
 			<?php echo form_error('temporada_id','<p class="error">', '</p>'); ?>
 			</div>
 			</div>
@@ -76,12 +66,19 @@ echo form_hidden('articulo[id]');
 			<?php echo form_error('valor_unitario','<p class="error">', '</p>'); ?>
 			</div>
 			</div>
+
+	
 			<!-- Text input-->
 			<div class="control-group">
 			<label class="control-label">Status</label>
 			<div class="controls">
-			<input value="<?php echo set_value('status'); ?>" class="form-control" type="text" name="status" />
-			<?php echo form_error('status','<p class="error">', '</p>'); ?>
+			
+			
+			<?php  
+			echo form_dropdown('status', $this->config->item('status'), $this->input->post('status'), 'id = status'); 
+			echo form_error('status','<p class="error">', '</p>');
+			?>
+
 			</div>
 			</div>
 			<!-- Text input-->
@@ -96,8 +93,17 @@ echo form_hidden('articulo[id]');
 			<div class="control-group">
 			<label class="control-label">Observaciones</label>
 			<div class="controls">
-			<input value="<?php echo set_value('observaciones'); ?>" class="form-control" type="text" name="observaciones" />
+			<textarea name="observaciones" id="observaciones" class="form-control"><?php echo set_value('observaciones'); ?></textarea>
 			<?php echo form_error('observaciones','<p class="error">', '</p>'); ?>
+			</div>
+			</div>
+
+			<!-- Text input-->
+			<div class="control-group">
+			<label class="control-label">Stock</label>
+			<div class="controls">
+			<input value="<?php echo set_value('stock'); ?>" class="form-control" type="text" name="stock" />
+			<?php echo form_error('stock','<p class="error">', '</p>'); ?>
 			</div>
 			</div>
 	<!-- Text input-->

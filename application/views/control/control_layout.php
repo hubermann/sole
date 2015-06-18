@@ -25,6 +25,7 @@
         .navbar {
         margin-bottom: 20px;
         }
+        .error{background-color:#f2dede; color:#a94442; padding: .2em; }
         </style>
     </head>
     <body>
@@ -44,7 +45,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php echo base_url('control'); ?>">Backend</a>
+            <a class="navbar-brand" href="<?php echo base_url('control'); ?>">PipinoBaby.com.ar</a>
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -60,17 +61,43 @@
               <a href="<?php echo base_url('control/pedidos'); ?>">Pedidos</a>
               </li>
 
-              <li <?php if($this->uri->segment(2) == "gastos"){echo 'class="active"';} ?>>
-              <a href="<?php echo base_url('control/gastos'); ?>">Algo</a>
+            
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Articulos <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li <?php if($this->uri->segment(2) == "articulos"){echo 'class="active"';} ?>>
+                  <a href="<?php echo base_url('control/articulos'); ?>">Articulos</a>
+                  </li>
+                  <li <?php if($this->uri->segment(2) == "temporadas"){echo 'class="active"';} ?>>
+                  <a href="<?php echo base_url('control/temporadas'); ?>">Temporadas</a>
+                  </li>
+                  <!--
+                  <li class="divider"></li>
+                  <li class="dropdown-header">Nav header</li>
+                  <li><a href="#">Separated link</a></li>
+                  <li><a href="#">One more separated link</a></li> -->
+                </ul>
               </li>
 
-              <li <?php if($this->uri->segment(2) == "articulos"){echo 'class="active"';} ?>>
-              <a href="<?php echo base_url('control/articulos'); ?>">Algo</a>
+              
+
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Gastos <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li <?php if($this->uri->segment(2) == "gastos"){echo 'class="active"';} ?>>
+              <a href="<?php echo base_url('control/gastos'); ?>">Gastos</a>
+              </li>
+                  <li <?php if($this->uri->segment(2) == "categorias_gastos"){echo 'class="active"';} ?>>
+              <a href="<?php echo base_url('control/categorias_gastos'); ?>">Categorias de Gastos</a>
+              </li>
+                  <!--
+                  <li class="divider"></li>
+                  <li class="dropdown-header">Nav header</li>
+                  <li><a href="#">Separated link</a></li>
+                  <li><a href="#">One more separated link</a></li> -->
+                </ul>
               </li>
 
-              <li <?php if($this->uri->segment(2) == "ingresos"){echo 'class="active"';} ?>>
-              <a href="<?php echo base_url('control/ingresos'); ?>">Algo</a>
-              </li>
               <!--
               <li>
               <a href="<?php echo base_url('control/'); ?>">Link</a>

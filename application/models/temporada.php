@@ -9,9 +9,18 @@ class Temporada extends CI_Model{
 	}
 	//all
 	public function get_records($num,$start){
-		$this->db->select()->from('temporadas')->order_by('id','ASC')->limit($num,$start);
-		return $this->db->get();
+		$query = $this->db->select('*')->from('temporadas')
+        ->order_by('id','ASC')
+        ->limit($num, $start)
+       	->get();
+       	return $query->result();
+	}
 
+	public function get_records_menu(){
+		$query = $this->db->select('*')->from('temporadas')
+        ->order_by('nombre','ASC')
+       	->get();
+       	return $query->result();
 	}
 
 	//detail
@@ -19,7 +28,6 @@ class Temporada extends CI_Model{
 		$this->db->where('id' ,$id);
 		$this->db->limit(1);
 		$c = $this->db->get('temporadas');
-
 		return $c->row(); 
 	}
 	
@@ -55,16 +63,16 @@ class Temporada extends CI_Model{
 		}
 
 
-		/*
+		
 		public function traer_nombre($id){
-					$this->db->where('temporadas_categoria_id' ,$id);
+					$this->db->where('id' ,$id);
 					$this->db->limit(1);
 					$c = $this->db->get('temporadas');
 
 					return $c->row('nombre'); 
 				}
 		
-		*/
+		
 
 }
 

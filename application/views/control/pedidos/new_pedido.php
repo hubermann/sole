@@ -60,10 +60,10 @@ echo form_hidden('pedido[id]');
 			</div>
 			<!-- Text input-->
 			<div class="control-group">
-			<label class="control-label">Estatus</label>
+			<label class="control-label">status</label>
 			<div class="controls">
-			<input value="<?php echo set_value('estatus'); ?>" class="form-control" type="text" name="estatus" />
-			<?php echo form_error('estatus','<p class="error">', '</p>'); ?>
+			<input value="<?php echo set_value('status'); ?>" class="form-control" type="text" name="status" />
+			<?php echo form_error('status','<p class="error">', '</p>'); ?>
 			</div>
 			</div>
 			<!-- Text input-->

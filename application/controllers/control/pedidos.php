@@ -7,6 +7,7 @@ public function __construct(){
 
 	parent::__construct();
 	$this->load->model('pedido');
+	$this->load->model('temporada');
 	$this->load->helper('url');
 	$this->load->library('session');
 
@@ -14,12 +15,8 @@ public function __construct(){
 	if(! $this->session->userdata('logged_in')){
 	redirect('dashboard');
 	}
+$this->output->enable_profiler(TRUE); 
 
-	if( ! ini_get('date.timezone') ){
-	    date_default_timezone_set('GMT');
-	    setlocale(LC_ALL,"es_ES");
-	    setlocale(LC_TIME, 'es_AR');
-	}
 
 	$this->data['thumbnail_sizes'] = array(); //thumbnails sizes 
 
@@ -56,22 +53,22 @@ public function index(){
 
 //detail
 public function detail(){
-
-$data['title'] = 'pedido';
-$data['content'] = 'control/pedidos/detail';
-$data['menu'] = 'control/pedidos/menu_pedido';
-$data['query'] = $this->pedido->get_record($this->uri->segment(4));
-$this->load->view('control/control_layout', $data);
+	$data['title'] = 'pedido';
+	$data['content'] = 'control/pedidos/detail';
+	$data['menu'] = 'control/pedidos/menu_pedido';
+	$data['query'] = $this->pedido->get_record($this->uri->segment(4));
+	$this->load->view('control/control_layout', $data);
 }
 
 
 //new
 public function form_new(){
-$this->load->helper('form');
-$data['title'] = 'Nuevo pedido';
-$data['content'] = 'control/pedidos/new_pedido';
-$data['menu'] = 'control/pedidos/menu_pedido';
-$this->load->view('control/control_layout', $data);
+	$this->load->helper('form');
+	$data['title'] = 'Nuevo pedido';
+	$data['content'] = 'control/pedidos/new_pedido';
+	$data['menu'] = 'control/pedidos/menu_pedido';
+
+	$this->load->view('control/control_layout', $data);
 }
 
 //create
@@ -87,7 +84,7 @@ $this->form_validation->set_rules('fecha', 'Fecha', 'required');
 
 $this->form_validation->set_rules('status', 'status', 'required');
 
-$this->form_validation->set_rules('observaciones', 'Observaciones', 'required');
+
 
 $this->form_validation->set_rules('monto_total', 'Monto_total', 'required');
 
@@ -148,7 +145,7 @@ $this->form_validation->set_rules('fecha', 'Fecha', 'required');
 
 $this->form_validation->set_rules('status', 'status', 'required');
 
-$this->form_validation->set_rules('observaciones', 'Observaciones', 'required');
+
 
 $this->form_validation->set_rules('monto_total', 'Monto_total', 'required');
 

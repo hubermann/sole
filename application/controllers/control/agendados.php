@@ -12,9 +12,9 @@ public function __construct(){
 
 	//Si no hay session redirige a Login
 	if(! $this->session->userdata('logged_in')){
-	#redirect('dashboard');
+	redirect('dashboard');
 	}
-	$this->output->enable_profiler(TRUE); 
+	
 
 	if( ! ini_get('date.timezone') ){
 	    date_default_timezone_set('GMT');
@@ -28,7 +28,7 @@ public function __construct(){
 
 public function index(){
 	//Pagination
-	$per_page = 4;
+	$per_page = 40;
 	$page = $this->uri->segment(3);
 	if(!$page){ $start =0; $page =1; }else{ $start = ($page -1 ) * $per_page; }
 		$data['pagination_links'] = "";
@@ -84,22 +84,8 @@ $this->form_validation->set_rules('nombre', 'Nombre', 'required');
 
 $this->form_validation->set_rules('apellido', 'Apellido', 'required');
 
-$this->form_validation->set_rules('razon_social', 'Razon_social', 'required');
 
-$this->form_validation->set_rules('direccion', 'Direccion', 'required');
-
-$this->form_validation->set_rules('telefono', 'Telefono', 'required');
-
-$this->form_validation->set_rules('movil', 'Movil', 'required');
-
-$this->form_validation->set_rules('email', 'Email', 'required');
-
-$this->form_validation->set_rules('email2', 'Email2', 'required');
-
-$this->form_validation->set_rules('cuit', 'Cuit', 'required');
-
-$this->form_validation->set_rules('observaciones', 'Observaciones', 'required');
-
+$this->form_validation->set_message('required','El campo %s es requerido.');
 	
 	if ($this->form_validation->run() === FALSE){
 
@@ -117,7 +103,9 @@ $this->form_validation->set_rules('observaciones', 'Observaciones', 'required');
 		}
 
 		
-		$newagendado = array( 'nombre' => $this->input->post('nombre'), 
+		$newagendado = array( 
+			'categoria_id' => $this->input->post('categoria_id'),
+			'nombre' => $this->input->post('nombre'), 
  'apellido' => $this->input->post('apellido'), 
  'razon_social' => $this->input->post('razon_social'), 
  'direccion' => $this->input->post('direccion'), 
@@ -157,24 +145,7 @@ $this->form_validation->set_rules('nombre', 'Nombre', 'required');
 
 $this->form_validation->set_rules('apellido', 'Apellido', 'required');
 
-$this->form_validation->set_rules('razon_social', 'Razon_social', 'required');
-
-$this->form_validation->set_rules('direccion', 'Direccion', 'required');
-
-$this->form_validation->set_rules('telefono', 'Telefono', 'required');
-
-$this->form_validation->set_rules('movil', 'Movil', 'required');
-
-$this->form_validation->set_rules('email', 'Email', 'required');
-
-$this->form_validation->set_rules('email2', 'Email2', 'required');
-
-$this->form_validation->set_rules('cuit', 'Cuit', 'required');
-
-$this->form_validation->set_rules('observaciones', 'Observaciones', 'required');
-
-
-	$this->form_validation->set_message('required','El campo %s es requerido.');
+$this->form_validation->set_message('required','El campo %s es requerido.');
 
 	if ($this->form_validation->run() === FALSE){
 		$this->load->helper('form');
@@ -191,28 +162,20 @@ $this->form_validation->set_rules('observaciones', 'Observaciones', 'required');
 			$this->load->helper('url');
 			$slug = url_title($this->input->post('titulo'), 'dash', TRUE);
 		}
-
+		$ahora = 
 		$editedagendado = array(  
-'nombre' => $this->input->post('nombre'),
-
-'apellido' => $this->input->post('apellido'),
-
-'razon_social' => $this->input->post('razon_social'),
-
-'direccion' => $this->input->post('direccion'),
-
-'telefono' => $this->input->post('telefono'),
-
-'movil' => $this->input->post('movil'),
-
-'email' => $this->input->post('email'),
-
-'email2' => $this->input->post('email2'),
-
-'cuit' => $this->input->post('cuit'),
-
-'observaciones' => $this->input->post('observaciones'),
-);
+		'categoria_id' => $this->input->post('categoria_id'),
+		'nombre' => $this->input->post('nombre'),
+		'apellido' => $this->input->post('apellido'),
+		'razon_social' => $this->input->post('razon_social'),
+		'direccion' => $this->input->post('direccion'),
+		'telefono' => $this->input->post('telefono'),
+		'movil' => $this->input->post('movil'),
+		'email' => $this->input->post('email'),
+		'email2' => $this->input->post('email2'),
+		'cuit' => $this->input->post('cuit'),
+		'observaciones' => $this->input->post('observaciones'),
+		);
 		#save
 		$this->session->set_flashdata('success', 'agendado Actualizado!');
 		$this->agendado->update_record($id, $editedagendado);

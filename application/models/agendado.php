@@ -9,16 +9,11 @@ class Agendado extends CI_Model{
 	}
 	//all
 	public function get_records($num,$start){
-		#$query = $this->db->get('agendados', $num, $start)->order_by('id ASC');
-        #return $query->result();
-
         $query = $this->db->select('*')->from('agendados')
         ->order_by('id','ASC')
         ->limit($num, $start)
        	->get();
        	return $query->result();
-
-
 	}
 
 

@@ -7,6 +7,7 @@ public function __construct(){
 
 	parent::__construct();
 	$this->load->model('articulo');
+	$this->load->model('temporada');
 	$this->load->helper('url');
 	$this->load->library('session');
 
@@ -71,6 +72,7 @@ $this->load->helper('form');
 $data['title'] = 'Nuevo articulo';
 $data['content'] = 'control/articulos/new_articulo';
 $data['menu'] = 'control/articulos/menu_articulo';
+$data['temporadas'] = $this->temporada->get_records_menu();
 $this->load->view('control/control_layout', $data);
 }
 
@@ -89,9 +91,6 @@ $this->form_validation->set_rules('valor_unitario', 'Valor_unitario', 'required'
 
 $this->form_validation->set_rules('status', 'Status', 'required');
 
-$this->form_validation->set_rules('descripcion', 'Descripcion', 'required');
-
-$this->form_validation->set_rules('observaciones', 'Observaciones', 'required');
 
 	
 	if ($this->form_validation->run() === FALSE){
@@ -126,11 +125,12 @@ $this->form_validation->set_rules('observaciones', 'Observaciones', 'required');
  'status' => $this->input->post('status'), 
  'descripcion' => $this->input->post('descripcion'), 
  'observaciones' => $this->input->post('observaciones'), 
+ 'stock' => $this->input->post('stock'),
 'filename' => $file['filename'], 
 );
 		#save
 		$this->articulo->add_record($newarticulo);
-		$this->session->set_flashdata('success', 'articulo creado. <a href="articulos/detail/'.$this->db->insert_id().'">Ver</a>');
+		$this->session->set_flashdata('success', 'Articulo creado.');
 		redirect('control/articulos', 'refresh');
 
 	}
@@ -146,6 +146,7 @@ public function editar(){
 	$data['content'] = 'control/articulos/edit_articulo';
 	$data['menu'] = 'control/articulos/menu_articulo';
 	$data['query'] = $this->articulo->get_record($this->uri->segment(4));
+	$data['temporadas'] = $this->temporada->get_records_menu();
 	$this->load->view('control/control_layout', $data);
 }
 
@@ -163,10 +164,6 @@ $this->form_validation->set_rules('valor_unitario', 'Valor_unitario', 'required'
 
 $this->form_validation->set_rules('status', 'Status', 'required');
 
-$this->form_validation->set_rules('descripcion', 'Descripcion', 'required');
-
-$this->form_validation->set_rules('observaciones', 'Observaciones', 'required');
-
 
 	$this->form_validation->set_message('required','El campo %s es requerido.');
 
@@ -177,6 +174,7 @@ $this->form_validation->set_rules('observaciones', 'Observaciones', 'required');
 		$data['content'] = 'control/articulos/edit_articulo';
 		$data['menu'] = 'control/articulos/menu_articulo';
 		$data['query'] = $this->articulo->get_record($this->input->post('id'));
+		$data['temporadas'] = $this->temporada->get_records_menu();
 		$this->load->view('control/control_layout', $data);
 	}else{
 		if($_FILES['filename']['size'] > 0){
@@ -207,20 +205,15 @@ $this->form_validation->set_rules('observaciones', 'Observaciones', 'required');
 		}
 
 		$editedarticulo = array(  
-'codigo' => $this->input->post('codigo'),
-
-'temporada_id' => $this->input->post('temporada_id'),
-
-'tela' => $this->input->post('tela'),
-
-'valor_unitario' => $this->input->post('valor_unitario'),
-
-'status' => $this->input->post('status'),
-
-'descripcion' => $this->input->post('descripcion'),
-
-'observaciones' => $this->input->post('observaciones'),
-);
+		'codigo' => $this->input->post('codigo'),
+		'temporada_id' => $this->input->post('temporada_id'),
+		'tela' => $this->input->post('tela'),
+		'valor_unitario' => $this->input->post('valor_unitario'),
+		'status' => $this->input->post('status'),
+		'descripcion' => $this->input->post('descripcion'),
+		'observaciones' => $this->input->post('observaciones'),
+		'stock' => $this->input->post('stock'),
+		);
 		#save
 		$this->session->set_flashdata('success', 'articulo Actualizado!');
 		$this->articulo->update_record($id, $editedarticulo);
