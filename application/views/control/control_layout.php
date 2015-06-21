@@ -12,10 +12,12 @@
 
         <link rel="stylesheet" href="<?php echo base_url('public_folder/css/normalize.min.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('public_folder/css/bootstrap.min.css'); ?>">
-        <link rel="stylesheet" href="<?php echo base_url('public_folder/css/main.css'); ?>">
+        
         <link rel="stylesheet" href="<?php echo base_url('public_folder/css/font-awesome.min.css'); ?>">
+        <link rel="stylesheet" href="<?php echo base_url('public_folder/css/bootstrap-datepicker3.css'); ?>">
 
         <script src="<?php echo base_url('public_folder/js/vendor/modernizr-2.6.2.min.js'); ?>"></script>
+        <script src="<?php echo base_url("public_folder/js/vendor/jquery-1.11.0.min.js"); ?>"></script>
         <style>
         body {
         padding-top: 20px;
@@ -26,6 +28,8 @@
         margin-bottom: 20px;
         }
         .error{background-color:#f2dede; color:#a94442; padding: .2em; }
+        footer small{color: #ccc; }
+        footer {color: #ccc; text-align: center;}
         </style>
     </head>
     <body>
@@ -166,31 +170,61 @@
 
 
         <!-- FOOTER -->
-    <footer class="container">
+        <div class="container-fluid">
+        <hr>
+    <footer>
+  
       <div class="row">
-        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 red">
-          <p> | Backend | </p>
-        </div>
-        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
-        <p></p>
-        </div>
+        <div class="col-md-3"><p>PipinoBaby.com.ar</p></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"><p><small>2015 | Desarrollado por Hubermann.com</small></p></div>
       </div>
 
     </footer>
-
+</div>
     <!-- END BODY -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="<?php echo base_url("public_folder/js/vendor/jquery-1.11.0.min.js"); ?>"><\/script>')</script>
+        
 
         <script src="<?php echo base_url('public_folder/js/plugins.js'); ?>"></script>
         <script src="<?php echo base_url('public_folder/js/bootstrap.min.js'); ?>"></script>
         <script src="<?php echo base_url('public_folder/js/main.js'); ?>"></script>
-
+        <script src="<?php echo base_url('public_folder/js/bootstrap-datepicker.js'); ?>"></script>
         
         <script>
         window.setTimeout(function() { $(".alert-success").alert('close'); }, 6000);
         window.setTimeout(function() { $(".alert-warning").alert('close'); }, 6000);
         window.setTimeout(function() { $(".alert-danger").alert('close'); }, 6000);
         </script>
+
+<script>
+  $('#fechacontainer input').datepicker({
+    format: "mm-dd-yyyy",
+    language: "es",
+  });
+
+  if($('#fecha').val() === ""){
+    
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if(dd<10) {
+        dd='0'+dd
+    } 
+
+    if(mm<10) {
+        mm='0'+mm
+    } 
+
+    today = mm+'-'+dd+'-'+yyyy;
+
+
+    $('#fecha').val(today);
+
+  }
+</script>
+
     </body>
 </html>

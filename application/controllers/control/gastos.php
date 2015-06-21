@@ -7,6 +7,7 @@ public function __construct(){
 
 	parent::__construct();
 	$this->load->model('gasto');
+	$this->load->model('categorias_gasto');
 	$this->load->helper('url');
 	$this->load->library('session');
 
@@ -22,12 +23,12 @@ public function __construct(){
 	}
 
 	$this->data['thumbnail_sizes'] = array(); //thumbnails sizes 
-
+	$this->output->enable_profiler(TRUE); 
 }
 
 public function index(){
 	//Pagination
-	$per_page = 4;
+	$per_page = 100;
 	$page = $this->uri->segment(3);
 	if(!$page){ $start =0; $page =1; }else{ $start = ($page -1 ) * $per_page; }
 		$data['pagination_links'] = "";
@@ -45,7 +46,7 @@ public function index(){
 	}
 	//End Pagination
 
-	$data['title'] = 'gastos';
+	$data['title'] = 'Gastos';
 	$data['menu'] = 'control/gastos/menu_gasto';
 	$data['content'] = 'control/gastos/all';
 	$data['query'] = $this->gasto->get_records($per_page,$start);
@@ -57,7 +58,7 @@ public function index(){
 //detail
 public function detail(){
 
-$data['title'] = 'gasto';
+$data['title'] = 'Gasto';
 $data['content'] = 'control/gastos/detail';
 $data['menu'] = 'control/gastos/menu_gasto';
 $data['query'] = $this->gasto->get_record($this->uri->segment(4));
@@ -81,14 +82,13 @@ public function create(){
 	$this->load->library('form_validation');
 $this->form_validation->set_rules('categoria_id', 'Categoria_id', 'required');
 
-$this->form_validation->set_rules('importe', 'Importe', 'required');
-
-$this->form_validation->set_rules('detalle', 'Detalle', 'required');
+$this->form_validation->set_rules('importe', 'Importe', 'required|integer');
 
 $this->form_validation->set_rules('fecha', 'Fecha', 'required');
 
-$this->form_validation->set_rules('created_at', 'Created_at', 'required');
+$this->form_validation->set_message('required','El campo %s es requerido.');
 
+$this->form_validation->set_message('integer','El campo %s debe ser un numero entero.');
 	
 	if ($this->form_validation->run() === FALSE){
 
@@ -99,19 +99,16 @@ $this->form_validation->set_rules('created_at', 'Created_at', 'required');
 		$this->load->view('control/control_layout', $data);
 
 	}else{
-		
-		if($this->input->post('slug')){
-			$this->load->helper('url');
-			$slug = url_title($this->input->post('titulo'), 'dash', TRUE);
-		}
-
-		
+	
+		$ahora = date("Y-m-d H:i:s");
+		list($mes,$dia,$anio) = explode('-', $this->input->post('fecha'));
+		$fecha_bd = "$anio-$mes-$dia";
 		$newgasto = array( 'categoria_id' => $this->input->post('categoria_id'), 
- 'importe' => $this->input->post('importe'), 
- 'detalle' => $this->input->post('detalle'), 
- 'fecha' => $this->input->post('fecha'), 
- 'created_at' => $this->input->post('created_at'), 
-);
+		 'importe' => $this->input->post('importe'), 
+		 'detalle' => $this->input->post('detalle'), 
+		 'fecha' => $fecha_bd, 
+		 'created_at' => $ahora, 
+		);
 		#save
 		$this->gasto->add_record($newgasto);
 		$this->session->set_flashdata('success', 'gasto creado. <a href="gastos/detail/'.$this->db->insert_id().'">Ver</a>');
@@ -137,19 +134,11 @@ public function editar(){
 public function update(){
 	$this->load->helper('form');
 	$this->load->library('form_validation'); 
-$this->form_validation->set_rules('categoria_id', 'Categoria_id', 'required');
-
-$this->form_validation->set_rules('importe', 'Importe', 'required');
-
-$this->form_validation->set_rules('detalle', 'Detalle', 'required');
-
-$this->form_validation->set_rules('fecha', 'Fecha', 'required');
-
-$this->form_validation->set_rules('created_at', 'Created_at', 'required');
-
-
+	$this->form_validation->set_rules('categoria_id', 'Categoria_id', 'required');
+	$this->form_validation->set_rules('importe', 'Importe', 'required|integer');
+	$this->form_validation->set_rules('fecha', 'Fecha', 'required');
 	$this->form_validation->set_message('required','El campo %s es requerido.');
-
+	$this->form_validation->set_message('integer','El campo %s debe ser un numero entero.');
 	if ($this->form_validation->run() === FALSE){
 		$this->load->helper('form');
 
@@ -161,24 +150,23 @@ $this->form_validation->set_rules('created_at', 'Created_at', 'required');
 	}else{		
 		$id=  $this->input->post('id');
 
-		if($this->input->post('slug')){
-			$this->load->helper('url');
-			$slug = url_title($this->input->post('titulo'), 'dash', TRUE);
-		}
+
+		$ahora = date("Y-m-d H:i:s");
+		list($mes,$dia,$anio) = explode('-', $this->input->post('fecha'));
+		$fecha_bd = "$anio-$mes-$dia";
 
 		$editedgasto = array(  
-'categoria_id' => $this->input->post('categoria_id'),
+		'categoria_id' => $this->input->post('categoria_id'),
 
-'importe' => $this->input->post('importe'),
+		'importe' => $this->input->post('importe'),
 
-'detalle' => $this->input->post('detalle'),
+		'detalle' => $this->input->post('detalle'),
 
-'fecha' => $this->input->post('fecha'),
+		'fecha' => $fecha_bd,
 
-'created_at' => $this->input->post('created_at'),
-);
+		);
 		#save
-		$this->session->set_flashdata('success', 'gasto Actualizado!');
+		$this->session->set_flashdata('success', 'Gasto Actualizado!');
 		$this->gasto->update_record($id, $editedgasto);
 		if($this->input->post('id')!=""){
 			redirect('control/gastos', 'refresh');

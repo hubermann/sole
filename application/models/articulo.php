@@ -24,6 +24,14 @@ class Articulo extends CI_Model{
 
 		return $c->row(); 
 	}
+
+	public function get_by_codigo($id){
+		$this->db->where('codigo' ,$id);
+		$this->db->limit(1);
+		$c = $this->db->get('articulos');
+
+		return $c->row(); 
+	}
 	
 	//total rows
 	public function count_rows(){ 

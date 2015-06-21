@@ -16,6 +16,13 @@ class Agendado extends CI_Model{
        	return $query->result();
 	}
 
+	public function get_records_menu(){
+        $query = $this->db->select('*')->from('agendados')
+        ->order_by('nombre','ASC')
+       	->get();
+       	return $query->result();
+	}
+
 
 
 	//detail

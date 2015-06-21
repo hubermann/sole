@@ -11,14 +11,14 @@ echo form_hidden('id', $query->id);
 
 
 <!-- Text input-->
-<!--
+
 <div class="control-group">
 <label class="control-label">Categoria id</label>
 	<div class="controls">
 	<select name="categoria_id" id="categoria_id">
 		<?php 
-		/* 
-		$categorias = $this->categoria->get_records_menu();
+	
+		$categorias = $this->categorias_gasto->get_records_menu();
 		if($categorias){
 
 			foreach ($categorias as $value) {
@@ -26,23 +26,16 @@ echo form_hidden('id', $query->id);
 				echo '<option value="'.$value->id.'" '.$sel.'>'.$value->nombre.'</option>';
 			}
 		}
-		*/
+
 		?>
 		</select>
 		
 		<?php echo form_error('categoria_id','<p class="error">', '</p>'); ?>
 	</div>
 </div>
--->
 
-			<!-- Text input-->
-			<div class="control-group">
-			<label class="control-label">Categoria_id</label>
-			<div class="controls">
-			<input value="<?php echo $query->categoria_id; ?>" type="text" class="form-control" name="categoria_id" />
-			<?php echo form_error('categoria_id','<p class="error">', '</p>'); ?>
-			</div>
-			</div>
+
+
 			<!-- Text input-->
 			<div class="control-group">
 			<label class="control-label">Importe</label>
@@ -60,21 +53,20 @@ echo form_hidden('id', $query->id);
 			</div>
 			</div>
 			<!-- Text input-->
+			<?php  
+			list($anio,$mes,$dia) = explode('-', $query->fecha);
+			$fecha_formateda = "$mes-$dia-$anio";
+			?>
 			<div class="control-group">
-			<label class="control-label">Fecha</label>
+			<label class="control-label">Fecha <small> (mes-dia-a&ntilde;o) </small></label>
 			<div class="controls">
-			<input value="<?php echo $query->fecha; ?>" type="text" class="form-control" name="fecha" />
+			<div id="fechacontainer">
+			<input value="<?php echo $fecha_formateda; ?>" type="text" class="form-control" name="fecha" />
+			</div>
 			<?php echo form_error('fecha','<p class="error">', '</p>'); ?>
 			</div>
 			</div>
-			<!-- Text input-->
-			<div class="control-group">
-			<label class="control-label">Created_at</label>
-			<div class="controls">
-			<input value="<?php echo $query->created_at; ?>" type="text" class="form-control" name="created_at" />
-			<?php echo form_error('created_at','<p class="error">', '</p>'); ?>
-			</div>
-			</div>
+
 
 <div class="control-group">
 <label class="control-label"></label>

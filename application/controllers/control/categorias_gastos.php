@@ -45,7 +45,7 @@ public function index(){
 	}
 	//End Pagination
 
-	$data['title'] = 'categorias_gastos';
+	$data['title'] = 'Categorias de gastos';
 	$data['menu'] = 'control/categorias_gastos/menu_categorias_gasto';
 	$data['content'] = 'control/categorias_gastos/all';
 	$data['query'] = $this->categorias_gasto->get_records($per_page,$start);
@@ -57,7 +57,7 @@ public function index(){
 //detail
 public function detail(){
 
-$data['title'] = 'categorias_gasto';
+$data['title'] = 'Categorias gastos';
 $data['content'] = 'control/categorias_gastos/detail';
 $data['menu'] = 'control/categorias_gastos/menu_categorias_gasto';
 $data['query'] = $this->categorias_gasto->get_record($this->uri->segment(4));
@@ -68,7 +68,7 @@ $this->load->view('control/control_layout', $data);
 //new
 public function form_new(){
 $this->load->helper('form');
-$data['title'] = 'Nuevo categorias_gasto';
+$data['title'] = 'Nueva categoria de gastos';
 $data['content'] = 'control/categorias_gastos/new_categorias_gasto';
 $data['menu'] = 'control/categorias_gastos/menu_categorias_gasto';
 $this->load->view('control/control_layout', $data);
@@ -85,7 +85,7 @@ $this->form_validation->set_rules('nombre', 'Nombre', 'required');
 	if ($this->form_validation->run() === FALSE){
 
 		$this->load->helper('form');
-		$data['title'] = 'Nuevo categorias_gastos';
+		$data['title'] = 'Nueva categorias de gastos';
 		$data['content'] = 'control/categorias_gastos/new_categorias_gasto';
 		$data['menu'] = 'control/categorias_gastos/menu_categorias_gasto';
 		$this->load->view('control/control_layout', $data);
@@ -98,8 +98,7 @@ $this->form_validation->set_rules('nombre', 'Nombre', 'required');
 		}
 
 		
-		$newcategorias_gasto = array( 'nombre' => $this->input->post('nombre'), 
-);
+		$newcategorias_gasto = array( 'nombre' => $this->input->post('nombre'), );
 		#save
 		$this->categorias_gasto->add_record($newcategorias_gasto);
 		$this->session->set_flashdata('success', 'categorias_gasto creado. <a href="categorias_gastos/detail/'.$this->db->insert_id().'">Ver</a>');
@@ -114,7 +113,7 @@ $this->form_validation->set_rules('nombre', 'Nombre', 'required');
 //edit
 public function editar(){
 	$this->load->helper('form');
-	$data['title']= 'Editar categorias_gasto';	
+	$data['title']= 'Editar categorias de gastos';	
 	$data['content'] = 'control/categorias_gastos/edit_categorias_gasto';
 	$data['menu'] = 'control/categorias_gastos/menu_categorias_gasto';
 	$data['query'] = $this->categorias_gasto->get_record($this->uri->segment(4));
@@ -125,7 +124,7 @@ public function editar(){
 public function update(){
 	$this->load->helper('form');
 	$this->load->library('form_validation'); 
-$this->form_validation->set_rules('nombre', 'Nombre', 'required');
+	$this->form_validation->set_rules('nombre', 'Nombre', 'required');
 
 
 	$this->form_validation->set_message('required','El campo %s es requerido.');
@@ -147,10 +146,10 @@ $this->form_validation->set_rules('nombre', 'Nombre', 'required');
 		}
 
 		$editedcategorias_gasto = array(  
-'nombre' => $this->input->post('nombre'),
-);
+		'nombre' => $this->input->post('nombre'),
+		);
 		#save
-		$this->session->set_flashdata('success', 'categorias_gasto Actualizado!');
+		$this->session->set_flashdata('success', 'Categoria Actualizada!');
 		$this->categorias_gasto->update_record($id, $editedcategorias_gasto);
 		if($this->input->post('id')!=""){
 			redirect('control/categorias_gastos', 'refresh');
@@ -171,7 +170,7 @@ $this->form_validation->set_rules('nombre', 'Nombre', 'required');
 public function delete_comfirm(){
 	$this->load->helper('form');
 	$data['content'] = 'control/categorias_gastos/comfirm_delete';
-	$data['title'] = 'Eliminar categorias_gasto';
+	$data['title'] = 'Eliminar categoria';
 	$data['menu'] = 'control/categorias_gastos/menu_categorias_gasto';
 	$data['query'] = $data['query'] = $this->categorias_gasto->get_record($this->uri->segment(4));
 	$this->load->view('control/control_layout', $data);
@@ -194,19 +193,16 @@ public function delete(){
 		$this->load->helper('form');
 
 		$data['content'] = 'control/categorias_gastos/comfirm_delete';
-		$data['title'] = 'Eliminar categorias_gasto';
+		$data['title'] = 'Eliminar categoria de gastos';
 		$data['menu'] = 'control/categorias_gastos/menu_categorias_gasto';
 		$data['query'] = $this->categorias_gasto->get_record($this->input->post('id'));
 		$this->load->view('control/control_layout', $data);
 	}else{
 		#validation passed
-		$this->session->set_flashdata('success', 'categorias_gasto eliminado!');
+		$this->session->set_flashdata('success', 'categoria eliminada!');
 
 		$prod = $this->categorias_gasto->get_record($this->input->post('id'));
-			$path = 'images-categorias_gastos/'.$prod->filename;
-			if(is_link($path)){
-				unlink($path);
-			}
+			
 		
 
 		$this->categorias_gasto->delete_record();

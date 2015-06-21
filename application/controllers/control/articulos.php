@@ -65,6 +65,66 @@ $data['query'] = $this->articulo->get_record($this->uri->segment(4));
 $this->load->view('control/control_layout', $data);
 }
 
+public function info_articulo_full(){
+	
+	$datos = array('estado' => 0, 
+		'valor_unitario' => ''
+		, 'tela' => ''
+		, 'stock' => ''
+		, 'stock' => ''
+		, 'imagen' => ''
+		, 'descripcion' => ''
+		, 'observaciones' => ''
+		);
+
+
+	if(is_numeric($this->input->post('idarticulo'))) {
+		$articulo = $this->articulo->get_by_codigo($this->input->post('idarticulo'));
+	
+		if($articulo!=NULL){
+			if($articulo->filename!=""){$imagen=$articulo->filename;}else{$imagen="";}
+			$nombre_temporada = $this->temporada->traer_nombre($articulo->temporada_id);
+			$datos = array('estado' => 1, 
+				'valor_unitario' => $articulo->valor_unitario,
+				'stock' => $articulo->stock,
+				'descripcion' => $articulo->descripcion,
+				'art_status' => $articulo->status,
+				'temporada' => $nombre_temporada,
+				'imagen' => $imagen,
+				'tela' => $articulo->tela,
+				);  
+		}
+	}//is_numeric
+
+   
+#var_dump($datos);
+header('Content-Type: application/json');
+echo json_encode( $datos );
+
+}
+
+public function info_articulo(){
+	$datos = array('estado' => 0, 'valor_unitario' => 'no-data', 'stock' => 'no-data');
+	
+		if(is_numeric($this->input->post('idarticulo'))) {
+			$articulo = $this->articulo->get_by_codigo($this->input->post('idarticulo'));
+		
+			if($articulo!=NULL){
+			$nombre_temporada = $this->temporada->traer_nombre($articulo->temporada_id);
+			$datos = array('estado' => 1, 
+				'valor_unitario' => $articulo->valor_unitario,
+				'stock' => $articulo->stock,
+				);  
+		}
+	}//is_numeric
+
+
+
+header('Content-Type: application/json');
+echo json_encode( $datos );
+
+}
+
 
 //new
 public function form_new(){

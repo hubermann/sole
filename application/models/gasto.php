@@ -17,6 +17,27 @@ class Gasto extends CI_Model{
 
 	}
 
+
+	public function gastos_mes_actual(){
+		$inicio_de_mes = date("Y-m-01");
+		$ahora = date('Y-m-d');
+
+	
+		$query = $this->db->select("*, SUM(importe) as total")
+		
+		->group_by('categoria_id')
+		->where('fecha BETWEEN "'. $inicio_de_mes. '" and "'. $ahora.'"')
+		->get('gastos');
+       	return $query->result();
+
+	}
+
+
+	
+
+
+
+
 	//detail
 	public function get_record($id){
 		$this->db->where('id' ,$id);

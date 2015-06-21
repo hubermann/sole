@@ -7,6 +7,8 @@ public function __construct(){
 
 	parent::__construct();
 	$this->load->model('pedido');
+	$this->load->model('agendado');
+	$this->load->model('pedidos_item');
 	$this->load->model('temporada');
 	$this->load->helper('url');
 	$this->load->library('session');
@@ -16,7 +18,6 @@ public function __construct(){
 	redirect('dashboard');
 	}
 $this->output->enable_profiler(TRUE); 
-
 
 	$this->data['thumbnail_sizes'] = array(); //thumbnails sizes 
 
@@ -78,15 +79,10 @@ public function create(){
 	$this->load->library('form_validation');
 $this->form_validation->set_rules('cliente_id', 'Cliente_id', 'required');
 
-$this->form_validation->set_rules('created_at', 'Created_at', 'required');
 
 $this->form_validation->set_rules('fecha', 'Fecha', 'required');
 
-$this->form_validation->set_rules('status', 'status', 'required');
 
-
-
-$this->form_validation->set_rules('monto_total', 'Monto_total', 'required');
 
 	
 	if ($this->form_validation->run() === FALSE){
@@ -104,17 +100,41 @@ $this->form_validation->set_rules('monto_total', 'Monto_total', 'required');
 			$slug = url_title($this->input->post('titulo'), 'dash', TRUE);
 		}
 
-		
-		$newpedido = array( 'cliente_id' => $this->input->post('cliente_id'), 
- 'created_at' => $this->input->post('created_at'), 
- 'fecha' => $this->input->post('fecha'), 
- 'status' => $this->input->post('status'), 
- 'observaciones' => $this->input->post('observaciones'), 
- 'monto_total' => $this->input->post('monto_total'), 
-);
+		$ahora = date("Y-m-d H:i:s");
+		list($mes,$dia,$anio) = explode('-', $this->input->post('fecha'));
+		$fecha_bd = "$anio-$mes-$dia";
+		$monto_total = 0 + $this->input->post('monto_total');
+		$newpedido = array( 
+		'cliente_id' => $this->input->post('cliente_id'), 
+		 'created_at' => $ahora , 
+		 'fecha' => $fecha_bd, 
+		 'status' => $this->input->post('status'), 
+		 'observaciones' => $this->input->post('observaciones'), 
+		 'monto_total' => $monto_total, 
+		);
 		#save
 		$this->pedido->add_record($newpedido);
+
+		
 		$this->session->set_flashdata('success', 'pedido creado. <a href="pedidos/detail/'.$this->db->insert_id().'">Ver</a>');
+		$ultimo_pedido = $this->db->insert_id(); 
+
+		$codigos_articulos = $this->input->post('codigo');
+		$cantidades_articulos = $this->input->post('cantidad');
+		$valores_unitarios = $this->input->post('valor_unitario');
+		
+		$counter_items = 0;
+		foreach($codigos_articulos as $codigo_art){
+
+			$newpedidos_item = array( 'pedido_id' => $ultimo_pedido, 
+			'codigo' => $codigos_articulos[$counter_items], 
+			'cantidad' => $cantidades_articulos[$counter_items], 
+			'valor_unitario' => $valores_unitarios[$counter_items], 
+			);
+
+			$counter_items++;
+		}
+
 		redirect('control/pedidos', 'refresh');
 
 	}
@@ -139,13 +159,9 @@ public function update(){
 	$this->load->library('form_validation'); 
 $this->form_validation->set_rules('cliente_id', 'Cliente_id', 'required');
 
-$this->form_validation->set_rules('created_at', 'Created_at', 'required');
-
 $this->form_validation->set_rules('fecha', 'Fecha', 'required');
 
 $this->form_validation->set_rules('status', 'status', 'required');
-
-
 
 $this->form_validation->set_rules('monto_total', 'Monto_total', 'required');
 
@@ -163,24 +179,23 @@ $this->form_validation->set_rules('monto_total', 'Monto_total', 'required');
 	}else{		
 		$id=  $this->input->post('id');
 
-		if($this->input->post('slug')){
-			$this->load->helper('url');
-			$slug = url_title($this->input->post('titulo'), 'dash', TRUE);
-		}
+		$ahora = date("Y-m-d H:i:s");
+		list($mes,$dia,$anio) = explode('-', $this->input->post('fecha'));
+		$fecha_bd = "$anio-$mes-$dia";
 
 		$editedpedido = array(  
-'cliente_id' => $this->input->post('cliente_id'),
+		'cliente_id' => $this->input->post('cliente_id'),
 
-'created_at' => $this->input->post('created_at'),
+		'updated_at' => $ahora,
 
-'fecha' => $this->input->post('fecha'),
+		'fecha' => $fecha_bd,
 
-'status' => $this->input->post('status'),
+		'status' => $this->input->post('status'),
 
-'observaciones' => $this->input->post('observaciones'),
+		'observaciones' => $this->input->post('observaciones'),
 
-'monto_total' => $this->input->post('monto_total'),
-);
+		'monto_total' => $this->input->post('monto_total'),
+		);
 		#save
 		$this->session->set_flashdata('success', 'pedido Actualizado!');
 		$this->pedido->update_record($id, $editedpedido);

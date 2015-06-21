@@ -9,71 +9,59 @@ echo form_hidden('gasto[id]');
 <legend><?php echo $title ?></legend>
 <div class="well well-large well-transparent">
 
+	<!-- Text input-->
 
-<!-- Text input-->
-<!--
-<div class="control-group">
-<label class="control-label">Categoria</label>
-	<div class="controls">
-		
-		<select name="categoria_id" id="categoria_id">
-		<?php  
-		/*
-		$categorias = $this->Categoria->get_records_menu();
-		if($categorias){
+	<div class="control-group">
+	<label class="control-label">Categoria</label>
+		<div class="controls">
+			
+			<select name="categoria_id" id="categoria_id">
+			<?php  
+			
+			$categorias = $this->categorias_gasto->get_records_menu();
+			if($categorias){
 
-			foreach ($categorias->result() as $value) {
-				echo '<option value="'.$value->id.'">'.$value->nombre.'</option>';
+				foreach ($categorias as $value) {
+					echo '<option value="'.$value->id.'">'.$value->nombre.'</option>';
+				}
 			}
-		}
-		*/
-		?>
-		</select>
+			
+			?>
+			</select>
 
-		<?php echo form_error('categoria_id','<p class="error">', '</p>'); ?>
-	</div>
-</div>
--->
-			<!-- Text input-->
-			<div class="control-group">
-			<label class="control-label">Categoria_id</label>
-			<div class="controls">
-			<input value="<?php echo set_value('categoria_id'); ?>" class="form-control" type="text" name="categoria_id" />
 			<?php echo form_error('categoria_id','<p class="error">', '</p>'); ?>
-			</div>
-			</div>
-			<!-- Text input-->
-			<div class="control-group">
-			<label class="control-label">Importe</label>
-			<div class="controls">
-			<input value="<?php echo set_value('importe'); ?>" class="form-control" type="text" name="importe" />
-			<?php echo form_error('importe','<p class="error">', '</p>'); ?>
-			</div>
-			</div>
-			<!-- Text input-->
-			<div class="control-group">
-			<label class="control-label">Detalle</label>
-			<div class="controls">
-			<input value="<?php echo set_value('detalle'); ?>" class="form-control" type="text" name="detalle" />
-			<?php echo form_error('detalle','<p class="error">', '</p>'); ?>
-			</div>
-			</div>
-			<!-- Text input-->
-			<div class="control-group">
-			<label class="control-label">Fecha</label>
-			<div class="controls">
-			<input value="<?php echo set_value('fecha'); ?>" class="form-control" type="text" name="fecha" />
-			<?php echo form_error('fecha','<p class="error">', '</p>'); ?>
-			</div>
-			</div>
-			<!-- Text input-->
-			<div class="control-group">
-			<label class="control-label">Created_at</label>
-			<div class="controls">
-			<input value="<?php echo set_value('created_at'); ?>" class="form-control" type="text" name="created_at" />
-			<?php echo form_error('created_at','<p class="error">', '</p>'); ?>
-			</div>
-			</div>
+		</div>
+	</div>
+
+
+	<!-- Text input-->
+	<div class="control-group">
+	<label class="control-label">Importe</label>
+	<div class="controls">
+	<input value="<?php echo set_value('importe'); ?>" class="form-control" type="text" name="importe" />
+	<?php echo form_error('importe','<p class="error">', '</p>'); ?>
+	</div>
+	</div>
+	<!-- Text input-->
+	<div class="control-group">
+	<label class="control-label">Detalle</label>
+	<div class="controls">
+	<textarea name="detalle" id="detalle" class="form-control"><?php echo set_value('detalle'); ?></textarea>
+	
+	<?php echo form_error('detalle','<p class="error">', '</p>'); ?>
+	</div>
+	</div>
+	<!-- Text input-->
+	<div class="control-group">
+	<label class="control-label">Fecha <small> (mes-dia-a&ntilde;o) </small></label>
+	<div class="controls">
+	<div id="fechacontainer">
+	<input value="<?php echo set_value('fecha'); ?>" class="form-control" type="text" name="fecha" id="fecha"/>
+	</div>
+	<?php echo form_error('fecha','<p class="error">', '</p>'); ?>
+	</div>
+	</div>
+
 
 <div class="control-group">
 <label class="control-label"></label>

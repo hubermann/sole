@@ -8,4 +8,6 @@ $config['status_articulos'] = array('En desarrollo' =>'En desarrollo', 'Disponib
 
 $config['status'] = array('En desarrollo' =>'En desarrollo', 'Disponible' => 'Disponible');
 
+$config['status_pedidos'] = array('En proceso' =>'En proceso', 'Para entregar' => 'Para entregar', 'Entregado' => 'Entregado');
+
 ?>

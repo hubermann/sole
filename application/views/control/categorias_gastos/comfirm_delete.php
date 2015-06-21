@@ -15,8 +15,8 @@ echo '<fieldset>'.form_hidden('id', $query->id);
 
 <label class="checkbox inline">
 
-<input type="checkbox" name="comfirm" id="comfirm" />
-<p>Confirma eliminar?</p>
+
+<p style="margin-left:15px;"><input type="checkbox" name="comfirm" id="comfirm" />Confirma eliminar?</p>
 <?php echo form_error('comfirm','<p class="error">', '</p>'); ?>
  </label>
 </div>

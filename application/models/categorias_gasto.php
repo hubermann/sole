@@ -17,6 +17,14 @@ class Categorias_gasto extends CI_Model{
        	return $query->result();
 	}
 
+	public function get_records_menu(){
+
+		$query = $this->db->select('*')->from('categorias_gastos')
+        ->order_by('nombre','ASC')
+       	->get();
+       	return $query->result();
+	}
+
 	//detail
 	public function get_record($id){
 		$this->db->where('id' ,$id);
@@ -58,16 +66,16 @@ class Categorias_gasto extends CI_Model{
 		}
 
 
-		/*
+		
 		public function traer_nombre($id){
-					$this->db->where('categorias_gastos_categoria_id' ,$id);
+					$this->db->where('id' ,$id);
 					$this->db->limit(1);
 					$c = $this->db->get('categorias_gastos');
 
 					return $c->row('nombre'); 
 				}
 		
-		*/
+		
 
 }
 
